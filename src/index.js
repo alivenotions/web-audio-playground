@@ -2,20 +2,18 @@ import './styles.css'
 let audioContext = null
 let unlocked = false
 let isPlaying = false
-// let startTime
 let current16thNote
 let bpm = 120.0
 const lookAhead = 25.0
 const scheduleAheadTime = 0.1
 let nextNoteTime = 0.0
-let noteResolution = 0 // 0 == 16th, 1 == 8th, 2 == quarter note
+let noteResolution = 2 // 0 == 16th, 1 == 8th, 2 == quarter note
 let noteLength = 0.05
 let notesInQueue = []
 let timerWorker
 function init() {
-  console.log('Hey?')
   audioContext = new AudioContext()
-  timerWorker = new Worker('/worker.js')
+  timerWorker = new Worker('./worker.js')
   timerWorker.onmessage = function(e) {
     if (e.data === 'tick') {
       scheduler()
